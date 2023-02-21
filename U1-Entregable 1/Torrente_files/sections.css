@@ -1,0 +1,51 @@
+#synopsisHolderE {
+    background-image: url("../images/synopsisHolderE.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    left : 6px;
+    top : 162px;
+    width : 632px;
+    height : 356px;
+    opacity: 0;
+    display: none;
+}
+
+#galleryHolderE {
+    position: absolute;
+    left : 6px;
+    top : 162px;
+    width : 632px;
+    height : 356px;
+    opacity: 0;
+    display: none;
+}
+
+
+
+
+#btnSynopsisE.active,
+#btnSynopsisE:hover {
+    background-image: url("../images/btnSynopsisHoverE.png");
+    background-repeat: no-repeat;
+}
+
+#btnGalleryE.active,
+#btnGalleryE:hover {
+    background-image: url("../images/btnGalleryHoverE.png");
+    background-repeat: no-repeat;
+}
+
+#btnVideoE.active,
+#btnVideoE:hover {
+    background-image: url("../images/btnVideoHoverE.png");
+    background-repeat: no-repeat;
+}
+
+
+.section {
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #364c60;  
+    box-shadow: 0 0 4px #000;
+}

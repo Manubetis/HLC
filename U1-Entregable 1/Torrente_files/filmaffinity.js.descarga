@@ -1,0 +1,243 @@
+sctiltle = function(s) {
+       var r = s.toLowerCase(s);
+       r = r.replace(new RegExp(/[àáâãäå]/g), "a");
+       r = r.replace(new RegExp(/æ/g), "ae");
+       r = r.replace(new RegExp(/ç/g), "c");
+       r = r.replace(new RegExp(/[èéêë]/g), "e");
+       r = r.replace(new RegExp(/[ìíîï]/g), "i");
+       r = r.replace(new RegExp(/ñ/g), "n");
+       r = r.replace(new RegExp(/[òóôõö]/g), "o");
+       r = r.replace(new RegExp(/œ/g), "oe");
+       r = r.replace(new RegExp(/[ùúûü]/g), "u");
+       r = r.replace(new RegExp(/[ýÿ]/g), "y");
+       r = r.replace(new RegExp(/[,\/]/g), ",")
+       return r;
+}
+const addCSS = s =>(d=>{d.head.appendChild(d.createElement("style")).innerHTML=s})(document);
+addCSS("#sc-brandday{position: fixed; bottom: 0px;}#sc-skyscraper-right{position: fixed; top: 100px; margin-right: 50%; right: -665px;}#sc-skyscraper-left{position: fixed; top: 100px; margin-left: 50%; left: -665px;}")
+window.googletag = window.googletag || {cmd: []};
+googletag.cmd.push(function() {
+		var mappingreportajes = googletag.sizeMapping().addSize([320, 200], [[320, 900]]).addSize([729, 200], [[728, 900]]).addSize([980, 200], [728, 900]).addSize([1025, 200], [980, 900]).build();
+		var mappingscskytoppub = googletag.sizeMapping().addSize([320, 200], []).addSize([729, 200], []).addSize([980, 200], []).addSize([1024, 200], [[160, 600], [120, 600]]).build();				
+		var seccion = window.location.pathname.split(/[:=?.\/ -]/).join('').toLowerCase();
+		var tags2 = document.title.split(/[:.\/ -]/).join(',');
+		var tags = sctiltle(tags2);
+		var URI = window.location.href;
+		var impression = document.body.scrollHeight;
+  		var REFRESH_KEY = 'inview';
+  		var REFRESH_VALUE = 'true';	
+if (document.location.href.indexOf("youtube") != -1) {
+	adunit2 = "youtube";
+} else if (document.location.href.indexOf("twitter") != -1) {
+	adunit2 = "twitter";		
+} else if (document.location.href.indexOf("instagram_feed") != -1) {
+	adunit2 = "instagram";	
+} else if (document.location.href.indexOf("instagtam") != -1) {
+	adunit2 = "instagram";	
+} else if (document.location.href.indexOf("igshid") != -1) {
+	adunit2 = "instagram";	
+} else if (document.location.href.indexOf("ig_") != -1) {
+	adunit2 = "instagram";			
+} else if (document.location.href.indexOf("linkinbio") != -1) {
+	adunit2 = "instagram";	
+} else if (document.location.href.indexOf("linkin.bio") != -1) {
+	adunit2 = "instagram";	
+} else if (document.location.href.indexOf("tiktok") != -1) {
+	adunit2 = "tiktok";	
+} else if (document.location.href.indexOf("fbclid") != -1) {
+	adunit2 = "facebook";
+} else if (document.location.href.indexOf("facebook") != -1) {
+	adunit2 = "facebook";	
+} else if (document.location.href.indexOf("pinterest") != -1) {
+	adunit2 = "pinterest";	
+} else if (document.location.href.indexOf("linkedin") != -1) {
+	adunit2 = "linkedin";	
+} else if (document.location.href.indexOf("snapchat") != -1) {
+	adunit2 = "snapchat";	
+} else if (document.location.href.indexOf("twitch") != -1) {
+	adunit2 = "twitch";	
+} else if (document.location.href.indexOf("utm_medium=social") != -1) {
+	adunit2 = "rrss_social";	
+} else if (document.location.href.indexOf("utm_medium=paidmedia") != -1) {
+	adunit2 = "rrss_social";
+} else if (document.location.href.indexOf("utm_medium=paid-media") != -1) {
+	adunit2 = "rrss_social";			
+} else	if (document.location.href.indexOf("new_filmin") != -1) {
+	adunit2 = "filmin";
+} else if (document.location.href.indexOf("name") != -1) {
+	adunit2 = "personajes";				
+} else if (document.location.href.indexOf("reviews") != -1) {
+	adunit2 = "criticas";
+} else if (document.location.href.indexOf("cat") != -1) {
+	adunit2 = "cartelera";
+} else if (document.location.href.indexOf("top") != -1) {
+	adunit2 = "top";
+} else if (document.location.href.indexOf("movieuserreviews.php") != -1) {
+	adunit2 = "criticas";
+} else if (document.location.href.indexOf("filmimages.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("evideos.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("movie-showtimes.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("movieposters.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("buymovie.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("vod_dvd.php") != -1) {
+	adunit2 = "vod";
+} else if (document.location.href.indexOf("movie-group.php") != -1) {
+	adunit2 = "resto";
+} else if (document.location.href.indexOf("awards.php") != -1) {
+	adunit2 = "premios";
+} else if (document.location.href.indexOf("search.php") != -1) {
+	const addCSS = s =>(d=>{d.head.appendChild(d.createElement("style")).innerHTML=s})(document);
+	addCSS("#sc-mpu-top {margin: auto; height: 2840px;} #sc-mpu-top > div {position: sticky; top: 60px; margin: auto;}")
+		adunit2 = "buscador";																			
+} else {
+	var adunit2 = "resto";	
+}
+	if (document.location.href.indexOf("filmimages.php") != -1) {
+		var titulo2 = document.querySelector('[id=main-title]').textContent.split(/[:.\/'")( -]/).join('');
+		var titulo = sctiltle(titulo2);
+		var div = document.createElement("div");
+		div.setAttribute("id", "sc-skyscraper-right");							
+		document.querySelector(".sc-top").parentNode.appendChild(div);	
+		var div2 = document.createElement("div");
+		div2.setAttribute("id", "sc-skyscraper-left");							
+		document.querySelector(".sc-oop").parentNode.appendChild(div2);		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/resto', [[728, 90], [980, 90], [980, 200], [970, 250], [125, 125], [200, 200], [980, 250]], 'sc-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low");
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/resto_derecha', [[160, 600], [120, 600]], 'sc-skyscraper-right').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "right");
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/resto_izquierda', [[160, 600], [120, 600]], 'sc-skyscraper-left').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "left");					
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/resto', ['fluid', [300, 250]], 'sc-mpu-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low");
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/restoBTF', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low");	
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/restoBTF2', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf2').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("tags", tags).setTargeting("seccion", seccion).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low");		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/restoBTF3', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf3').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low");			
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/restoBTF4', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf4').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low");	
+	} else if (document.location.href.indexOf("name") != -1) {	
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'', [[728, 90], [980, 90], [980, 200], [970, 250], [125, 125], [200, 200], [980, 250]], 'sc-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		//googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'_derecha', [[160, 600], [120, 600]], 'sc-skyscraper-right').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "right");
+		//googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'_izquierda', [[160, 600], [120, 600]], 'sc-skyscraper-left').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "left");					
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'', ['fluid', [300, 250]], 'sc-mpu-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF2', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf2').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF3', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf3').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF4', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf4').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);	
+	} else if (document.location.href.indexOf("nativead") != -1) {
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/advertorial', [[980, 900]], 'sc-native').defineSizeMapping(mappingreportajes).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("lazy", "low");						
+	} else if (document.location.href.indexOf("filmaffinity.com/es/film") != -1) {
+		if(document.querySelector("[class=card-card-producer]")){
+		var distribuidor2 = document.querySelector("[class=card-card-producer]").textContent.split(/[:.\/ -]/).join(',');
+		var distribuidor = sctiltle(distribuidor2);
+		} else {
+		var distribuidor = "null";
+		}	
+		var director2 = document.querySelector('[class=directors]').textContent.split(/[:.\/'")( -]/).join('');
+//		var actor2 = document.querySelector('[class=card-cast]').textContent.split(/[:.\/'")( -]/).join('');
+		var titulo2 = document.title.split(/[:.,\/'")( -]/).join('');
+		var titulo = sctiltle(titulo2);
+//		var actor = sctiltle(actor2);	
+		var director = sctiltle(director2);
+		if(document.querySelector("[class=card-genres]")){
+		var genero2 = document.querySelector("[class=card-genres]").textContent.split(/[:.\/ -]/).join(',');
+		var genero = sctiltle(genero2);
+		} else {
+		var genero = "null";
+		}	
+		var seccion = window.location.pathname.split(/[:=?.\/ -]/).join('').toLowerCase();
+		var tags2 = document.querySelector('[itemprop=description]').textContent.split(/[:=?.\/ -]/).join(',').toLowerCase();
+		var tags = sctiltle(tags2);
+		var URI = window.location.href;
+		var scfichaid = window.location.pathname.split(/[:=?.\/ -]/)[2];
+		if(document.querySelector("[class^=icon-]")){
+		var ott2 = document.querySelector("[class^=icon-]").getAttribute("title").split(/[:.\/ -]/).join(',');
+		var ott = sctiltle(ott2);
+		} else {
+		var ott = 'null';
+		}	
+//		var impression = document.body.scrollHeight;
+ // 		var REFRESH_KEY = 'inview';
+  //		var REFRESH_VALUE = 'true';		
+		var div = document.createElement("div");
+		div.setAttribute("id", "sc-skyscraper-right");							
+		document.querySelector(".sc-top").parentNode.appendChild(div);	
+		var div2 = document.createElement("div");
+		div2.setAttribute("id", "sc-skyscraper-left");							
+		document.querySelector(".sc-oop").parentNode.appendChild(div2);		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichas', [[728, 90], [980, 90], [980, 200], [970, 250], [125, 125], [200, 200], [980, 250]], 'sc-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("director", director).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichas', ['fluid', [300, 250]], 'sc-mpu-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichas_derecha', [[160, 600], [120, 600]], 'sc-skyscraper-right').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "right").setTargeting("ott", ott);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichas_izquierda', [[160, 600], [120, 600]], 'sc-skyscraper-left').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "left").setTargeting("ott", ott);						
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichasBTF', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);	
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichasBTF2', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf2').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichasBTF3', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf3').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);			
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/fichasBTF4', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf4').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("genero", genero).setTargeting("director", director).setTargeting("distribuidor", distribuidor).setTargeting("tags", tags).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("ficha", scfichaid).setTargeting("ott", ott);									
+	} else if (document.location.href.indexOf("main") != -1) {	
+		const addCSS = s =>(d=>{d.head.appendChild(d.createElement("style")).innerHTML=s})(document);
+		addCSS("#sc-mpu-btf2 {margin: auto; height: 2840px;} #sc-mpu-btf2 > div {position: sticky; top: 60px; margin: auto;}")
+		var div = document.createElement("div");
+		div.setAttribute("id", "sc-skyscraper-right");							
+		document.querySelector(".sc-top").parentNode.appendChild(div);	
+		var div2 = document.createElement("div");
+		div2.setAttribute("id", "sc-skyscraper-left");							
+		document.querySelector(".sc-oop").parentNode.appendChild(div2);		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/home', [[728, 90], [980, 90], [980, 200], [970, 250], [125, 125], [200, 200], [980, 250]], 'sc-top').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/home', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-top').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/home_derecha', [[160, 600], [120, 600]], 'sc-skyscraper-right').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "right");
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/home_izquierda', [[160, 600], [120, 600]], 'sc-skyscraper-left').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "left");					
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/homeBTF', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/homeBTF2', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf2').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);	
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/homeBTF3', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf3').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);	
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/homeBTF4', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf4').addService(googletag.pubads()).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);					
+	} else {
+		var titulo2 = document.querySelector('[id=main-title]').textContent.split(/[:.\/'")( -]/).join('');
+		var titulo = sctiltle(titulo2);
+		var div = document.createElement("div");
+		div.setAttribute("id", "sc-skyscraper-right");							
+		document.querySelector(".sc-top").parentNode.appendChild(div);	
+		var div2 = document.createElement("div");
+		div2.setAttribute("id", "sc-skyscraper-left");							
+		document.querySelector(".sc-oop").parentNode.appendChild(div2);		
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'', [[728, 90], [980, 90], [980, 200], [970, 250], [125, 125], [200, 200], [980, 250]], 'sc-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'_derecha', [[160, 600], [120, 600]], 'sc-skyscraper-right').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "right");
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'_izquierda', [[160, 600], [120, 600]], 'sc-skyscraper-left').defineSizeMapping(mappingscskytoppub).addService(googletag.pubads()).setTargeting("seccion", seccion).setTargeting("tags", tags).setTargeting("refresh", "low").setTargeting("lazy", "low").setTargeting("position", "left");					
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'', ['fluid', [300, 250]], 'sc-mpu-top').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF2', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf2').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF3', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf3').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);
+		googletag.defineSlot('/5555,48394383/adconion.filmaffinity.es/'+ adunit2 +'BTF4', ['fluid', [300, 250], [300, 600], [320, 150], [160, 600], [120, 600]], 'sc-mpu-btf4').addService(googletag.pubads()).setTargeting("titulo", titulo).setTargeting("refresh", "false").setTargeting("impression", impression).setTargeting("URI", URI).setTargeting("lazy", "low").setTargeting("seccion", seccion).setTargeting("tags", tags);	
+	}
+	var SECONDS_TO_WAIT_AFTER_VIEWABILITY = 30;
+	googletag.pubads().enableLazyLoad();
+	googletag.pubads().enableLazyLoad({
+		fetchMarginPercent : 75
+	});
+	googletag.pubads().enableLazyLoad({
+		fetchMarginPercent : 75,
+		renderMarginPercent : 25,
+		mobileScaling : 0
+	});
+	googletag.pubads().addEventListener('impressionViewable', function(event) {
+    	var slot = event.slot;
+    	if (slot.getTargeting(REFRESH_KEY).indexOf(REFRESH_VALUE) > -1) {
+      	setTimeout(function() {
+        googletag.pubads().refresh([slot]);
+      	}, SECONDS_TO_WAIT_AFTER_VIEWABILITY * 1000);
+    	}
+  	});
+	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+	googletag.display('sc-skyscraper-right');	
+	googletag.display('sc-skyscraper-left');		
+	googletag.display('sc-native');	
+});
+(function () {
+	var sc__script = document.createElement("script")
+	sc__script.src = "https://cdn.smartclip-services.com/v1/Storage-a482323/smartclip-services/wrappers/sc__sync.js"
+	document.getElementsByTagName("head")[0].insertAdjacentElement("afterbegin",sc__script)
+})();
+
+var sc = document.createElement("script");
+sc.type = "text/javascript";
+sc.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/sc-trigger-audience.js";
+$("head").append(sc);

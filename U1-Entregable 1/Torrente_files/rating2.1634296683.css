@@ -1,0 +1,16 @@
+.rate-movie-box{ position:relative; width: 160px; padding: 0px 10px; margin: 10px 0px; text-align: center; box-sizing: content-box;}
+.rate-wrapper *, .rate-wrapper::after, .rate-wrapper::before{ box-sizing: content-box;}
+.review-img{ position:absolute; left: 20px; top: 10px;}
+.review-img i{ color: #333; font-size: 18px;}
+.sending-rating{ font-style:italic}
+.rating-title{ color:#003366; font-size:12px; margin-bottom:10px;}
+.rating-img{ margin: 8px 0px 0px 0px; height:20px;}
+.share-rat-container{ display: none;}
+.share-rat-container{ position:absolute; left: 15px; top: 5px; margin: 0px 0px 0px 2px; }
+.share-rat-container a{ text-decoration: none;}
+.share-rat-container a:link, .share-rat-container a:hover, .share-rat-container a:visited{ text-decoration: none;}
+.rating-select{ font-size: 12px; font-weight: bold;}
+
+.rate-movie-box .dropdown-menu .dropdown-item{ padding: 5px 10px; width: auto;}
+.rate-movie-box .dropdown-menu .dropdown-item .text > div{ display: inline-flex; font-size: 14px; justify-content: center; align-items: center;}
+.rate-movie-box .dropdown.bootstrap-select .dropdown-toggle .filter-option .filter-option-inner-inner > div{display: inline-flex; font-size: 12px; justify-content: center; align-items: center;}

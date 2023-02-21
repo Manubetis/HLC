@@ -1,0 +1,11 @@
+backGroundClick_ADFC_CUID_2=function(e) {
+    var link=link2;
+    EE=e?e:event;
+    if(!EE)return;
+    var t=EE.target?EE.target:EE.srcElement;
+    if((!t||t.tagName!="BODY"  )  && t.parentNode.tagName!="BODY"  )
+    return;
+//    var ad=window.open(""+link);
+	top.open(link);
+}
+top.document.body.addEventListener("click",backGroundClick_ADFC_CUID_2)

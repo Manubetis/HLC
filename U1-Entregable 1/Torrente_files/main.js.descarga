@@ -1,0 +1,529 @@
+
+function main() {
+	// =====================
+	// variables
+	// =====================
+
+	var isExpanded = false;
+	var countVar;
+	var expandedByClick = false;
+	var videoInserted = false;
+	var seconds = 3;
+
+
+
+	// =====================
+	// eventos
+	// =====================
+
+	myFT.$(document).on('click', onDocumentClicked);
+	myFT.on('instantads', onInstantAdsLoaded);
+	myFT.on('expand', onExpand);
+	myFT.$('#videoNE').on('canplay', onCanPlay);
+	myFT.$('#overlayToExpandNE').on('mouseover', overlayToExpandNEMouseOver);
+	myFT.$('#overlayToExpandNE').on('mouseout', overlayToExpandNEMouseOut);
+	myFT.$('#overlayToExpandNE').on('click', overlayToExpandNEClick);
+	myFT.$('.btn-close').on('click', contract);
+	myFT.$('.btn-section').on('click', onBtnSectionClicked);
+	myFT.$('.click-tag').on('click', onClicktagClicked);
+
+	// información sobre la galería
+	myFT.on('gallery-slide-showed', function (data) {
+		// console.log('gallery-slide-showed: ' + data.stepName, data.index);
+	});
+
+
+	// =====================
+	// manejadores de eventos
+	// =====================
+
+	// al hacer click en cualquier lugar del documento se desactiva la pastilla de activar sonido
+	function onDocumentClicked() {
+		myFT.$(document).off('click', onDocumentClicked);
+		removeActiveSound();
+	}
+
+	function onInstantAdsLoaded() {
+		manageReleaseDates();
+		init();
+	}
+
+	function onExpand() {
+		if (!isExpanded) {
+			expand();
+		}
+	}
+
+	// gestiona los clicks de los elementos que tengan la clase .click-tag
+	function onClicktagClicked(e) {
+		var that = e.target.id || e.target.className; // recoge el nombre del id o de la classe en el caso de no tener id
+		switch (that) { // ejecuta un código dependiendo del nombre del id, se deberá modificar para que coincidan
+			case 'btnFBE':
+				myFT.clickTag(2);
+				break;
+			case 'btnTWE':
+				myFT.clickTag(3);
+				break;
+			case 'btnINE':
+				myFT.clickTag(4);
+				break;
+			case 'btnYTE':
+				myFT.clickTag(5);
+				break;
+			case 'btnCompraE':
+				myFT.clickTag(6);
+				break;
+			default:
+				myFT.clickTag(1);
+		}
+		contract();
+	}
+
+
+	// gestiona los clicks de los elementos que tengan la clase .btn-section
+	function onBtnSectionClicked() {
+		var thatFT = myFT.$(this);
+
+		/* previene la interacción con los botones de la sección si ya estás en dicha sección y si ha terminado la animacion del videoHolderE */
+		if (!thatFT.hasClass('active') && videoE.video.played.length !== 0) {
+
+			myFT.$('.btn-section').removeClass('active');
+			thatFT.addClass('active');
+
+			switch (thatFT[0].id) {
+				case 'btnSynopsisE':
+					goToSection('synopsis');
+					break;
+				case 'btnGalleryE':
+					goToSection('gallery');
+					break;
+				case 'btnVideoE':
+					goToSection('video');
+					break;
+			}
+		}
+	}
+
+	function overlayToExpandNEMouseOver() {
+		TweenMax.to(c2action, .5, { alpha: 0 });
+		TweenMax.to(dimmerVideoNE, .5, { alpha: .5 });
+		TweenMax.to(countDown, .5, { alpha: 1 });
+		TweenMax.to(progressBarr, 2.5, {
+			width: 115, onComplete: function () {
+				if (!isExpanded) {
+					TweenMax.to(myFT.$('#unexpanded'), 0.1, {
+						alpha: 0,
+						onComplete: function () {
+							myFT.expand();
+						}
+					});
+				}
+			}
+		});
+		startCount();
+	}
+
+	function overlayToExpandNEMouseOut() {
+		TweenMax.to(c2action, .5, { alpha: 1 });
+		TweenMax.to(dimmerVideoNE, .5, { alpha: 0 });
+		TweenMax.to(countDown, .5, { alpha: 0 });
+		TweenMax.to(progressBarr, 0, { width: 0 });
+		restoreCount();
+	}
+
+	function overlayToExpandNEClick() {
+		if (!isExpanded) {
+			restoreCount();
+			TweenMax.to(myFT.$('#unexpanded'), 0.1, {
+				alpha: 0,
+				onComplete: function () {
+					myFT.expand();
+				}
+			});
+		}
+	}
+
+	function onTimeUpdated() {
+		switch (this.name) {
+			case 'video1':
+				if (this.duration - 1 < this.currentTime && !this.paused) {
+					myFT.send('COMSCOREEND');
+					myFT.tracker('COMSCOREEND');
+					myFT.$(this).off('timeupdate', onTimeUpdated);
+				}
+				break;
+
+			case 'video2':
+				if ((this.currentTime > 29 || this.currentTime > this.duration - 1) && !this.paused) {
+					myFT.tracker('trackingview');
+					myFT.send('SMARTVIEW');
+					myFT.$(this).off('timeupdate', onTimeUpdated);
+				}
+				break;
+		}
+	}
+
+	// esta función se utiliza para asignar el evento 'timeupdate' al elemento de vídeo que lance el evento 'canplay'
+	function onCanPlay() {
+		myFT.$(this).off('canplay', onCanPlay);
+		myFT.$(this).on('timeupdate', onTimeUpdated);
+	}
+
+	function onUnMuteClick() {
+		initVideoE();
+	}
+
+	function onRichLoadLoaded(e) {
+		var slides = e.target.contentDocument.querySelectorAll('.slide');
+		myFT.$(slides).on('click', onClicktagClicked);
+	}
+
+
+
+
+	// =====================
+	// funciones de animación
+	// =====================
+
+	function unexpandedAnimation() {
+
+		// resetea todos los elementos hijos directos de dentro del div#assetsNE
+		if (myFT.$('#assetsNE').children()[0].length !== 0) { // comprueba si existen elementos dentro de '#assetsNE'
+			TweenMax.to(myFT.$('#assetsNE').children(), 0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		}
+		TweenMax.to(videoHolderNE, 0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+
+		// inicio animación non-expanded
+
+		TweenMax.from(tt1NE, 2, { delay: 1, x: -15, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt2NE, 2, { delay: 1, x: -5, alpha: 0, ease: Power3.easeOut });
+
+		TweenMax.from(tt3NE, 2, { delay: 1, x:+5, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt4NE, 2, { delay: 1, x:+15, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt5NE, 2, { delay: 1.2, y:-10, alpha: 0, ease: Power3.easeOut });
+
+		// TweenMax.from([yaencinesNE, dateNE], 2, { delay: 1.2, alpha: 0, y: 10, ease: Power3.easeOut });
+
+		TweenMax.from(videoHolderNE, 1.5, { delay: 0.9, alpha: 0, scale: 0.8, ease: Power3.easeOut });
+
+		// final animación non-expanded
+
+		scaleC2Action();
+
+	}
+
+	function expandedAnimation() {
+
+		// animación estándar expand
+		TweenMax.to(expanded, 0, { alpha: 1, scale: 1 });
+		TweenMax.from(expanded, 1, { delay: 0, scale: .8 });
+
+		// resetea todos los elementos hijos directos de dentro del div#assetsE
+		if (myFT.$('#assetsE').children()[0].length !== 0) { // comprueba si existen elementos dentro de '#assetsE'
+			TweenMax.to(myFT.$('#assetsE').children(), 0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		}
+		TweenMax.to(videoHolderE, 0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(controlsHolderE, 0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+
+		TweenMax.to(cartel_mum,                          0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_speech,                       0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_emmett,                       0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_shop,                         0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_women,                        0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_glows,                        0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+		TweenMax.to(cartel_car,                          0, { alpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+
+		// inicio animación expanded
+
+		/*TweenMax.from(bgE, 2, { scale: 1, ease: Power3.easeOut });*/
+
+		TweenMax.from(tt1E, 2, { delay: 0.2, x: -15, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt2E, 2, { delay: 0.2, x: -5, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt3E, 2, { delay: 0.2, x:+5, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt4E, 2, { delay: 0.2, x:+15, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(tt5E, 2, { delay: 0.4, y:-10, alpha: 0, ease: Power3.easeOut });
+
+		TweenMax.from([yaencinesE, dateE], 2, { delay: 1.2, alpha: 0, y: -10, ease: Power3.easeOut });
+
+		TweenMax.from(cartel_mum,                          3, {delay:0.2, scale:1.2, x:-20, y:+15, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_speech,                       3, {delay:0.8, scale:1.2, x:15, y:-20, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_emmett,                       3, {delay:0.4, scale:1.2, x:20, y:+15, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_shop,                         3, {delay:0.6, scale:1.2, x:-15, y:-15, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_women,                        3, {delay:0.2, scale:1.2, x:15, y:+15, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_glows,                        3, {delay:0.6, scale:1.2, x:20, y:+15, alpha:0, ease:Back.easeOut});
+		TweenMax.from(cartel_car,                          3, {delay:0.4, scale:1.2, x:-15, y:20, alpha:0, ease:Back.easeOut});
+
+
+
+		TweenMax.from([videoHolderE, controlsHolderE], 2, { delay: 0.6, alpha: 0, scale: 0.8, ease: Power3.easeOut, onComplete: initVideoE });
+
+		TweenMax.from(btnSynopsisE, 2, { delay: 1.4, alpha: 0, y:5, ease: Power3.easeOut });
+		TweenMax.from(btnGalleryE, 2, { delay: 1.2, alpha: 0, y:5, ease: Power3.easeOut });
+		TweenMax.from(btnVideoE, 2, { delay: 1, alpha: 0, y:5, ease: Power3.easeOut });
+
+		TweenMax.from(btnCompraE, 2, { delay: 1.3, alpha: 0, scale: 1.1, ease: Power3.easeOut });
+		TweenMax.from(btnFBE, 2, { delay: 1.6, alpha: 0, scale: 0.4, ease: Power3.easeOut });
+		TweenMax.from(btnTWE, 2, { delay: 1.7, alpha: 0, scale: 0.4, ease: Power3.easeOut });
+		TweenMax.from(btnINE, 2, { delay: 1.8, alpha: 0, scale: 0.4, ease: Power3.easeOut });
+		TweenMax.from(btnYTE, 2, { delay: 1.9, alpha: 0, scale: 0.4, ease: Power3.easeOut });
+
+		TweenMax.from(legal1E, 2, { delay: 2, alpha: 0, ease: Power3.easeOut });
+		TweenMax.from(legal2E, 2, { delay: 2, alpha: 0, ease: Power3.easeOut });
+
+		// final animación expanded
+
+	}
+
+	function scaleC2Action() {
+		TweenMax.to(c2action, .5, { scaleX: 1, scaleY: 1, onComplete: restoreC2Action });
+	}
+
+	function restoreC2Action() {
+		TweenMax.to(c2action, .5, { scaleX: .85, scaleY: .85, onComplete: scaleC2Action });
+	}
+
+	function initVideoE() {
+		if (isExpanded) {
+			videoE.restart();
+		}
+	}
+
+	function initVideoNE() {
+		if (!isExpanded) {
+			videoNE.restart();
+		}
+	}
+
+
+
+	// =====================
+	// funciones
+	// =====================
+
+	function init() {
+		unexpandedAnimation();
+	}
+
+	function expand() {
+
+		isExpanded = true;
+
+		myFT.$('#unexpanded').css({ 'display': 'none', 'opacity': '0' });
+		myFT.$('#expanded, #dimmer').css({ 'display': 'block' });
+		TweenMax.to('#dimmer', 0, { alpha: 0 });
+		TweenMax.to('#dimmer', 0.5, { alpha: 1 });
+
+		videoNE.stop();
+
+		insertVideo2();
+
+		expandedAnimation();
+
+	}
+
+	function contract() {
+
+		TweenMax.killAll();
+
+		if (isExpanded) {
+
+			isExpanded = false;
+
+			resetSections();
+
+			if (myFT.$('#videoE').length > 0) {
+				videoE.stop();
+			}
+
+			myFT.$('#expanded').css('display', 'none');
+			myFT.$('#unexpanded').css({ 'display': 'block', 'opacity': '1' });
+			myFT.$('#dimmer').css({ 'display': 'none', 'opacity': '0' });
+
+			myFT.contract();
+
+		}
+
+		initVideoNE();
+
+		unexpandedAnimation();
+
+	}
+
+	function insertVideo2() {
+
+		if (!videoInserted) {
+
+			videoInserted = true;
+			var vid = new FTVideoElement();
+			vid.loop = false;
+			vid.id = 'videoE';
+			vid.controls = false;
+
+			var cntrls = new FTVideoControlsElement();
+			cntrls.htmlFor = vid.id;
+
+			vid.autoplay = false;
+
+			if (!expandedByClick) {
+				vid.muted = true;
+				myFT.$('#overlayUnMuteIcon').css('display', 'block');
+				myFT.$('#overlayUnMuteIcon').on('click', onUnMuteClick);
+				myFT.$('#videoHolderE').prepend(vid);
+				myFT.$('#controlsHolderE').append(cntrls);
+			} else {
+				vid.muted = false;
+				myFT.$('#videoHolderE').prepend(vid);
+				myFT.$('#controlsHolderE').append(cntrls);
+			}
+
+			vid.name = 'video2';
+
+			myFT.$(vid).on('canplay', onCanPlay);
+			myFT.$(vid).on('click', onClicktagClicked);
+
+		}
+
+	}
+
+	function removeActiveSound() {
+		expandedByClick = true;
+		myFT.$('#overlayUnMuteIcon').css('display', 'none');
+		myFT.$('#overlayUnMuteIcon').off('click', onUnMuteClick);
+		if (myFT.$('#videoE').length > 0) {
+			videoE.unmute();
+		}
+	}
+
+
+	function resetSections() {
+		// fuerza que la sección vídeo sea la activa por defecto
+		myFT.$('.btn-section').removeClass('active');
+		myFT.$('#btnVideoE').addClass('active');
+
+		myFT.$('#videoHolderE, #controlsHolderE').css({ 'display': 'block' });
+		myFT.$('#galleryHolderE').css({ 'display': 'none' });
+		myFT.$('#synopsisHolderE').css({ 'display': 'none' });
+
+		TweenMax.to(['#videoHolderE', '#controlsHolderE'], 1, { alpha: 1, ease: Power4.easeOut });
+
+	}
+
+	function goToSection(st) {
+		if (st == 'video') {
+
+			myFT.tracker('videoSection');
+
+			myFT.$('#videoHolderE, #controlsHolderE').css({ 'display': 'block' });
+
+			TweenMax.to(['#videoHolderE', '#controlsHolderE'], 1, { alpha: 1, ease: Power4.easeOut });
+
+			TweenMax.to('#galleryHolderE', 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#galleryHolderE').css({ 'display': 'none' }) } });
+			TweenMax.to('#synopsisHolderE', 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#synopsisHolderE').css({ 'display': 'none' }) } });
+
+			videoE.play();
+
+		} else if (st == 'gallery') {
+
+			myFT.tracker('gallerySection');
+
+			myFT.$('#galleryHolderE').css({ 'display': 'block' });
+
+			TweenMax.to('#galleryHolderE', 1, { alpha: 1, ease: Power4.easeOut });
+
+			TweenMax.to(['#videoHolderE', '#controlsHolderE'], 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#videoHolderE , #controlsHolderE').css({ 'display': 'none' }) } });
+			TweenMax.to('#synopsisHolderE', 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#synopsisHolderE').css({ 'display': 'none' }) } });
+
+			videoE.pause();
+
+			createRichload('#galleryHolderE', 'richload1', onRichLoadLoaded);
+
+		} else if (st == 'synopsis') {
+
+			myFT.tracker('synopsisSection');
+
+			myFT.$('#synopsisHolderE').css({ 'display': 'block' });
+
+			TweenMax.to('#synopsisHolderE', 1, { alpha: 1, ease: Power4.easeOut });
+
+			TweenMax.to(['#videoHolderE', '#controlsHolderE'], 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#videoHolderE , #controlsHolderE').css({ 'display': 'none' }) } });
+			TweenMax.to('#galleryHolderE', 1, { alpha: 0, ease: Power4.easeOut, onComplete: function () { myFT.$('#galleryHolderE').css({ 'display': 'none' }) } });
+
+			videoE.pause();
+
+		}
+
+	}
+
+	// @param elementHolder -> selector del elemento para contener la galería
+	// @param numSlides -> número de slides
+	// @param callBack ->  función que se lanza cuando el richload esté cargado
+	function createRichload(elementHolder, richloadName, callBack) {
+		var holderElementFT = myFT.$(elementHolder);
+
+		if (!holderElementFT[0].children.length) {
+			var richload = new FTRichloadElement();
+			richload.name = richloadName;
+			holderElementFT.append(richload);
+
+			if (callBack !== undefined) {
+				myFT.$(richload).on('loaded', callBack);
+			}
+
+		}
+	}
+
+	function startCount() {
+		countVar = setInterval(function () {
+			if (seconds > 0) {
+				seconds = seconds - 1;
+				document.getElementById('count').innerHTML = seconds;
+			} else {
+				clearInterval(countVar);
+			}
+		}, 833);
+	}
+
+	function restoreCount() {
+		seconds = 3;
+		document.getElementById('count').innerHTML = seconds;
+		clearInterval(countVar);
+	}
+
+	// esta función gestiona la aparición de las fechas segun el valor del instant ad con el nombre 'releaseDateDisplayed'
+	// el contendido de cada caso es modificable
+	function manageReleaseDates() {
+
+		myFT.$('.date-release').addClass('display-none');
+
+		switch (myFT.instantAds.releaseDateDisplayed.toLowerCase()) {
+			case 'release':
+			case 'released':
+			case 'ya_en_cines':
+			case 'yaencines':
+				myFT.$('.release').removeClass('display-none');
+				break;
+
+			case 'numero1':
+			case 'num1':
+			case 'num1encines':
+
+				break;
+
+			default:
+				myFT.$('.date').removeClass('display-none');
+				break;
+		}
+	}
+
+}
+
+// =====================
+// loader
+// =====================
+window.addEventListener('load', function () {
+	if (myFT.hasLoaded) {
+		main();
+	} else {
+		myFT.on('ready', main);
+	}
+});

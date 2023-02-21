@@ -1,0 +1,49 @@
+
+var ftGUID_7190032="5530B9AB7D7830";
+var ftConfID_7190032="29493008";
+var ftParams_7190032="ftx=&fty=&ftadz=&ftscw=&ft_custom=&ftOBA=1www.filmaffinity.com/es/film334167.html&ft_agentEnv=0&ft_referrer=www.filmaffinity.com%2Fes%2Ffilm334167.html&cachebuster=435147.74239511025";
+var ftKeyword_7190032="";
+var ftCustom_7190032="";
+var ftSection_7190032="";
+var ftSegment_7190032="";
+var ftSegmentList_7190032=[];
+var ftRuleMatch_7190032="0";
+var ftTimestamp_7190032="1676966023";
+var ftGeoC2_7190032="es";
+var ftGeoState_7190032="se";
+var ftGeoCity_7190032="bormujos";
+var ftISP_7190032="rediris";
+var ftSpeed_7190032="broadband";
+var ftConnType_7190032="wifi";
+var ftDMA_7190032="-1";
+var ftLong_7190032="-6.06";
+var ftLat_7190032="37.38";
+var ftPostal_7190032="41950";
+var ftTimeZone_7190032="+100";
+var ftMobileCarrier_7190032="";
+var ftImp7190032 = {};
+ftImp7190032.privacy = "t";
+ftImp7190032.guidAge = "501";
+ftImp7190032.impID = "2F259379-F2D2-37E1-AA49-B3A5B5F6A30B";
+ftImp7190032.duid = "FT:5530B9AB7D7830";
+
+ftImp7190032.ft_tpplid = "";
+ftImp7190032.ft_c = {};
+ftImp7190032.gdpr = "";
+ftImp7190032.gdpr_consent = "";
+ftImp7190032.gdpr_pd = "";
+ftImp7190032.oob_consent = "";
+ftImp7190032.gdprStoredConsent = "";
+ftImp7190032.us_privacy = "";
+
+ftImp7190032.jsAppend = "1";
+(function(){
+    var tag = document.getElementById('ft_servedby_7190032') || (function(s){
+    	return s[s.length-1];
+    }(document.getElementsByTagName('script'))),
+           js = document.createElement('script');
+    js.src =
+"https://cdn.flashtalking.com/xre/719/7190032/4216555/js/j-7190032-4216555.js";
+    js.id = "ftscript_m7190032";
+    tag.parentNode.insertBefore(js, tag);
+}());

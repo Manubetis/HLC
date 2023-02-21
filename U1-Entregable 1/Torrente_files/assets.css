@@ -1,0 +1,515 @@
+#____ {
+	position : absolute;
+	left : 334px;
+	top : 0px;
+	width : 980px;
+	height : 200px;
+	opacity : 0;
+}
+
+#tt5NE {
+	background-image : url("../images/tt5NE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 102px;
+	top : 151px;
+	width : 373px;
+	height : 17px;
+	opacity : 0;
+}
+
+#tt4NE {
+	background-image : url("../images/tt4NE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 397px;
+	top : 29px;
+	width : 78px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt3NE {
+	background-image : url("../images/tt3NE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 285px;
+	top : 29px;
+	width : 78px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt2NE {
+	background-image : url("../images/tt2NE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 222px;
+	top : 29px;
+	width : 24px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt1NE {
+	background-image : url("../images/tt1NE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 102px;
+	top : 29px;
+	width : 89px;
+	height : 108px;
+	opacity : 0;
+}
+
+#videoHolderNE {
+	position : absolute;
+	left : 592px;
+	top : 17px;
+	width : 294px;
+	height : 165px;
+	opacity : 0;
+	border-radius: 5px;
+	border: 1px solid black;
+    overflow: hidden;
+}
+
+#____ {
+	position : absolute;
+	left : 333px;
+	top : 215px;
+	width : 980px;
+	height : 600px;
+	opacity : 0;
+}
+
+#legal1E {
+	background-image : url("../images/legal1E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 4px;
+	top : 587px;
+	width : 32px;
+	height : 8px;
+	opacity : 0;
+}
+
+#legal2E {
+	background-image : url("../images/legal2E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 958px;
+	top : 583px;
+	width : 19px;
+	height : 13px;
+	opacity : 0;
+}
+
+#yaencinesE {
+	background-image : url("../images/yaencinesE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 201px;
+	top : 179px;
+	width : 174px;
+	height : 15px;
+	opacity : 0;
+}
+
+#dateE {
+	background-image : url("../images/dateE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 27px;
+	top : 179px;
+	width : 547px;
+	height : 15px;
+	opacity : 0;
+}
+
+#tt5E {
+	background-image : url("../images/tt5E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 114px;
+	top : 141px;
+	width : 373px;
+	height : 17px;
+	opacity : 0;
+}
+
+#tt4E {
+	background-image : url("../images/tt4E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 409px;
+	top : 19px;
+	width : 78px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt3E {
+	background-image : url("../images/tt3E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 297px;
+	top : 19px;
+	width : 78px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt2E {
+	background-image : url("../images/tt2E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 234px;
+	top : 19px;
+	width : 24px;
+	height : 108px;
+	opacity : 0;
+}
+
+#tt1E {
+	background-image : url("../images/tt1E.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 114px;
+	top : 19px;
+	width : 89px;
+	height : 108px;
+	opacity : 0;
+}
+
+#closeBtnE:hover {
+	background-image : url("../images/closeBtnHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#closeBtnE {
+	background-image : url("../images/closeBtnE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 933px;
+	top : 7px;
+	width : 40px;
+	height : 38px;
+	opacity : 0;
+}
+
+#btnFBE:hover {
+	background-image : url("../images/btnFBHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnTWE:hover {
+	background-image : url("../images/btnTWHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnINE:hover {
+	background-image : url("../images/btnINHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnYTE:hover {
+	background-image : url("../images/btnYTHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnFBE {
+	background-image : url("../images/btnFBE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 801px;
+	top : 546px;
+	width : 37px;
+	height : 34px;
+	opacity : 0;
+}
+
+#btnTWE {
+	background-image : url("../images/btnTWE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 841px;
+	top : 546px;
+	width : 37px;
+	height : 34px;
+	opacity : 0;
+}
+
+#btnINE {
+	background-image : url("../images/btnINE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 881px;
+	top : 546px;
+	width : 37px;
+	height : 34px;
+	opacity : 0;
+}
+
+#btnYTE {
+	background-image : url("../images/btnYTE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 921px;
+	top : 546px;
+	width : 37px;
+	height : 34px;
+	opacity : 0;
+}
+
+#btnCompraE:hover {
+	background-image : url("../images/btnCompraHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnCompraE {
+	background-image : url("../images/btnCompraE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 634px;
+	top : 466px;
+	width : 306px;
+	height : 39px;
+	opacity : 0;
+}
+
+#btnSynopsisE:hover {
+	background-image : url("../images/btnSynopsisHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnGalleryE:hover {
+	background-image : url("../images/btnGalleryHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnVideoE:hover {
+	background-image : url("../images/btnVideoHoverE.png");
+	background-repeat: no-repeat;
+}
+
+#btnSynopsisE {
+	background-image : url("../images/btnSynopsisE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 397px;
+	top : 547px;
+	width : 162px;
+	height : 40px;
+	opacity : 0;
+}
+
+#btnGalleryE {
+	background-image : url("../images/btnGalleryE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 220px;
+	top : 547px;
+	width : 162px;
+	height : 40px;
+	opacity : 0;
+}
+
+#btnVideoE {
+	background-image : url("../images/btnVideoE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 43px;
+	top : 547px;
+	width : 162px;
+	height : 40px;
+	opacity : 0;
+}
+
+
+#cartel_car {
+	background-image : url("../images/cartel_car.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 564px;
+	top : 518px;
+	width : 222px;
+	height : 78px;
+	opacity : 0;
+}
+
+#cartel_glows {
+	background-image : url("../images/cartel_glows.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 657px;
+	top : 386px;
+	width : 327px;
+	height : 141px;
+	opacity : 0;
+}
+
+#cartel_women {
+	background-image : url("../images/cartel_women.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 659px;
+	top : 297px;
+	width : 278px;
+	height : 230px;
+	opacity : 0;
+}
+
+#cartel_shop {
+	background-image : url("../images/cartel_shop.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 846px;
+	top : 452px;
+	width : 151px;
+	height : 76px;
+	opacity : 0;
+}
+
+#cartel_emmett {
+	background-image : url("../images/cartel_emmett.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 778px;
+	top : 169px;
+	width : 194px;
+	height : 337px;
+	opacity : 0;
+}
+
+#cartel_speech {
+	background-image : url("../images/cartel_speech.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 539px;
+	top : 405px;
+	width : 256px;
+	height : 121px;
+	opacity : 0;
+}
+
+#cartel_mum {
+	background-image : url("../images/cartel_mum.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 539px;
+	top : -16px;
+	width : 459px;
+	height : 543px;
+	opacity : 0;
+}
+
+#synopsisHolderE {
+	position : absolute;
+	left : 8px;
+	top : 207px;
+	width : 584px;
+	height : 331px;
+	opacity : 0;
+	border-radius: 5px;
+	border: 1px solid black;
+    overflow: hidden;
+}
+
+#galleryHolderE {
+	position : absolute;
+	left : 8px;
+	top : 207px;
+	width : 584px;
+	height : 331px;
+	opacity : 0;
+	border-radius: 5px;
+	border: 1px solid black;
+    overflow: hidden;
+}
+
+#videoHolderE {
+	position : absolute;
+	left : 8px;
+	top : 207px;
+	width : 584px;
+	height : 331px;
+	opacity : 0;
+	border-radius: 5px;
+	border: 1px solid black;
+    overflow: hidden;
+}
+
+#bgE {
+	background-image : url("../images/bgE.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	width : 980px;
+	height : 600px;
+	opacity : 0;
+}
+

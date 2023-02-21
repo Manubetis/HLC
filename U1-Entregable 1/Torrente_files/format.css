@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#unexpanded {
+    position: absolute;
+    width: 980px;
+    height: 200px;
+    overflow: hidden;
+}
+
+#expanded {
+    display: none;
+    position: absolute;
+    width: 980px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    -ms-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    border-radius: 5px;
+    /*overflow: hidden;*/
+}
+
+.click-tag {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+#dimmer {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    opacity: 0;
+}
+
+#overlayUnMuteIcon {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    top: 0px;
+    left: 0px;
+    background-image: url("../images/activateSound.png");
+    background-size: 117px 42px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+
+/* -------------------------
+- - - aspa de cierre - - -
+---------------------------- */
+
+#closeBtnE {
+    background-image: url("../images/closeBtnE.png");
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 936px;
+    top: 16px;
+    width: 30px;
+    height: 30px;
+}
+
+#closeBtnE:hover {
+    background-image: url("../images/closeBtnHoverE.png");
+}
+
+
+
+/* -------------------------
+- - - clases útiles - - -
+---------------------------- */
+
+.btn {
+    position: relative;
+    z-index: 100;
+    cursor: pointer;
+    -webkit-transition: background-image 200ms ease-in-out;
+    -o-transition: background-image 200ms ease-in-out;
+    transition: background-image 200ms ease-in-out;
+}
+
+.full-size {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+.opacity-1-important {
+    opacity: 1 !important;
+}

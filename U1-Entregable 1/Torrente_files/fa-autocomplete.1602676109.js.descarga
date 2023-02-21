@@ -1,0 +1,87 @@
+$(function(){
+	var optionsAutocomplete = {
+		
+
+		  url: function(term) {
+				return pageUrl("search-ac.ajax.php?action=searchTerm")
+		  },
+
+		  getValue: "value",
+
+		  ajaxSettings: {
+			dataType: "json",
+			method: "POST",
+			data: {
+			  dataType: "json"
+			}
+		  },
+		  
+		  listLocation: "results",
+
+		  preparePostData: function(data) {
+				data.term = $("#top-search-input").val();
+			return data;
+		  },
+		  
+		  minCharNumber: 2,
+		  
+		  adjustWidth: false,
+		  
+		  template: {
+			type: "custom",
+			method: function(value, item){
+					return item.label;
+				}
+			},
+			
+			list: {
+				maxNumberOfElements: 10,
+				onClickEvent: function() {
+					var item = $('#top-search-input').getSelectedItemData();
+					
+					//si no es un número es el separador o el ver más
+					if( Number.isInteger(item.id) ){
+						if( item.id.toString().length == 3){
+							window.location.href = pageUrl('theater-showtimes.php?id=' + item.id);
+						} else if( !$(item.label).hasClass('name-ac') ){
+							window.location.href = pageUrl('film' + item.id + '.html');
+						} else{
+							window.location.href = pageUrl("name.php?name-id=" + item.id);
+						}
+					} else {
+						if(item.id == 'sep'){
+							window.location.href = pageUrl( "search.php?stext=" + $('#top-search-input').val() + "&stype=theater" );
+						} else if(item.id == 'se-a') {
+							window.location.href = pageUrl( "search.php?stext=" + $('#top-search-input').val() + "&stype=all" );
+						}
+					}
+					
+					//window.location = pageUrl('film' + item.id + '.html');
+				},
+				onKeyEnterEvent: function() {
+					var item = $('#top-search-input').getSelectedItemData();
+					//si no es un número es el separador o el ver más
+					if( Number.isInteger(item.id) ){
+						if( item.id.toString().length == 3){
+							window.location.href = pageUrl('theater-showtimes.php?id=' + item.id);
+						} else if( !$(item.label).hasClass('name-ac') ){
+							window.location.href = pageUrl('film' + item.id + '.html');
+						} else{
+							window.location.href = pageUrl("name.php?name-id=" + item.id);
+						}
+					} else {
+						if(item.id == 'sep') {
+							window.location.href = pageUrl( "search.php?stext=" + $('#top-search-input').val() + "&stype=theater" );
+						} else if(item.id == 'se-a') {
+							window.location.href = pageUrl( "search.php?stext=" + $('#top-search-input').val() + "&stype=all" );
+						}
+					}
+				}
+				
+			}		
+	};
+
+	$('#top-search-input').easyAutocomplete( optionsAutocomplete );
+
+	
+})

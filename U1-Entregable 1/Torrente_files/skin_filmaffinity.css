@@ -1,0 +1,35 @@
+body {
+	background-position: 50% 90px !important;
+}
+
+body.sc-4bg {
+	background-position: 50% -60px !important;
+}
+
+iframe[name^=__cmpLocator] {
+	height: 0px;
+}
+
+#sc-top, 
+#sc-top div, 
+#sc-top iframe {
+    min-width: 980px !important;
+    min-height: 200px !important;
+
+}
+.adver-wrapper {
+	z-index: auto !important;
+	overflow-y: visible!important;	
+}
+
+table#main-content-table > tbody{
+	position: relative;
+}
+
+
+#sc-skyscraper-right {
+	margin-top: 1024px;
+}
+#sc-skyscraper-left {
+	margin-top: 1024px;
+}

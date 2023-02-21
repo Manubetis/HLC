@@ -1,0 +1,165 @@
+/* -------------------
+- - - countdown - - -  
+-------------------- */
+
+#countDown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+#desplegandoTxt {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #faf5ea;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    -webkit-transform: translateY(calc(-50% - 26px));
+    -ms-transform: translateY(calc(-50% - 26px));
+    -o-transform: translateY(calc(-50% - 26px));
+    transform: translateY(calc(-50% - 26px));
+}
+
+#count {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #faf5ea;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    -webkit-transform: translateY(calc(-50% + 30px));
+    -ms-transform: translateY(calc(-50% + 30px));
+    -o-transform: translateY(calc(-50% + 30px));
+    transform: translateY(calc(-50% + 30px));
+}
+
+#progressBarr {
+    position: absolute;
+    margin: 1px 1px 0px 1px;
+    width: 0px;
+    height: 33px;
+    /* cambia el color de la barra que muestra la progresión */
+    background-color: #fef4e0;
+}
+
+#progressBarrBg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 117px;
+    height: 35px;
+    background-color: rgba(0, 0, 0, .7);
+    /* cambia el color de fondo de la barra de progresión */
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+/* -------------------
+- - - video Things - - -
+-------------------- */
+
+
+ft-video::shadow video {
+    width: 100%;
+    height: 100%;
+}
+
+ft-video video,
+ft-video iframe,
+ft-video canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+ft-video {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+ft-video-controls {
+    border-radius: 0px;
+    opacity: .8;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    font-size: 14px;
+    color: white;
+}
+
+.ft-video-progress-bar {
+    border: 0px solid white;
+    border-radius: 0px;
+    height: 3px;
+}
+
+.ft-video-progress-bar::after {
+    border-radius: 0px;
+    box-shadow: black 0px 0px 0px inset;
+}
+
+#overlayToExpandNE {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+#dimmerVideoNE {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+}
+
+#controlsHolderE {
+    position: absolute;
+    width: 0%;
+    left: 0;
+    bottom: 0;
+    z-index: 64;
+}
+
+#c2action {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#videoHolderNE {
+    position: absolute;
+    left: 632px;
+    top: 14px;
+    width: 315px;
+    height: 177px;
+    opacity: 0;
+    overflow: hidden;
+}
+
+#videoHolderE {
+    position: absolute;
+    left: 8px;
+    top: 206px;
+    width: 577px;
+    height: 325px;
+    opacity: 0;
+}

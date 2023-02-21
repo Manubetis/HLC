@@ -1,0 +1,46 @@
+(function () {
+	
+	onTcStringReady = function(tc_string){
+		//fire addobe sync pixel
+		try {
+				
+				/*fetch("https://ad.sxp.smartclip.net/ads?plc=115361").then(r=>r.json()).then(data=>{
+				fetch("https://dpm.demdex.net/ibs:dpid=1122847&dpuuid="+ data.uuid+"&gdpr=1&gdpr_consent="+tc_string);
+				});*/
+
+			} catch(e) {
+				console.log(e);
+			}
+		
+
+	};
+
+
+
+	var shouldRun = function(){
+			if (typeof __scTrackingService == "undefined"){
+				return true
+			}else{
+				return false
+			}
+
+	}
+	if (shouldRun()){
+
+
+		top.__tcfapi("ping", 2, function () {
+
+                                top.__tcfapi('addEventListener', 2, function (tcData, success) {
+                                    if (success && tcData.tcString && (tcData.eventStatus== "tcloaded" || tcData.eventStatus== "useractioncomplete") ) {
+                                        onTcStringReady(tcData.tcString)
+                                        top.__tcfapi('removeEventListener', 2, function () {
+                                        }, tcData.listenerId)
+                                    }
+                                });
+		});
+	
+			
+	}
+
+top.__scTrackingService = {}
+})();

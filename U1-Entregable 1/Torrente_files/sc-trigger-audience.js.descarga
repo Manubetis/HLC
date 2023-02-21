@@ -1,0 +1,44 @@
+if (document.location.href.indexOf("hogarmania") != -1) {
+var scgfk = document.createElement("script");
+scgfk.type = "text/javascript";
+scgfk.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_hogarmania_gfk.js";
+$("head").append(scgfk);
+} else if (document.location.href.indexOf("cocinatis") != -1) {
+var scgfk = document.createElement("script");
+scgfk.type = "text/javascript";
+scgfk.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_cocinatis_gfk.js";
+$("head").append(scgfk);
+} else if (document.location.href.indexOf("filmaffinity") != -1) {
+var scgfk = document.createElement("script");
+scgfk.type = "text/javascript";
+scgfk.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_filmaffinity_gfk.js";
+$("head").append(scgfk);
+} else if (document.location.href.indexOf("europapress") != -1) {
+(function () {
+	var scsyncgfkepress = document.createElement("script")
+	scsyncgfkepress.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_epress_gfk.js"
+	document.getElementsByTagName("head")[0].insertAdjacentElement("afterbegin",scsyncgfkepress)
+})();
+} else if (document.location.href.indexOf("culturaocio") != -1) {
+(function () {
+	var scsyncgfkepress = document.createElement("script")
+	scsyncgfkepress.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_epress_gfk.js"
+	document.getElementsByTagName("head")[0].insertAdjacentElement("afterbegin",scsyncgfkepress)
+})();
+} else if (document.location.href.indexOf("infosalus") != -1) {
+(function () {
+	var scsyncgfkepress = document.createElement("script")
+	scsyncgfkepress.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_epress_gfk.js"
+	document.getElementsByTagName("head")[0].insertAdjacentElement("afterbegin",scsyncgfkepress)
+})();
+} else if (document.location.href.indexOf("ecartelera") != -1) {
+var scgfk = document.createElement("script");
+scgfk.type = "text/javascript";
+scgfk.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_ecartelera_gfk.js";
+$("head").append(scgfk);
+} else {
+var scgfk = document.createElement("script");
+scgfk.type = "text/javascript";
+scgfk.src = "https://sc-devel.s3.eu-central-1.amazonaws.com/GFK/libs/smartclip_audience_gfk.js";
+$("head").append(scgfk);
+}

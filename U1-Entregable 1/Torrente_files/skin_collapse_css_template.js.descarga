@@ -1,0 +1,1109 @@
+function asyncInject_smartclip_skin_css(array, fn, delay) {
+    var i = 0;
+    window.setTimeout(function iter() {
+        if (i === array.length) {
+            return;
+        }
+        fn.call(array, array[i], i++);
+        window.setTimeout(iter, delay);
+    }, 0);
+}
+
+require_smartclip_skin_css = function(paths, callback) {
+
+    // Check if the path param is of the required type.
+    if (!paths instanceof Array || !paths instanceof String) {
+        console.log('Please check the useage');
+        return;
+    }
+
+    // If paths param is a single param, convert it to an Array.
+    paths = typeof paths === 'string' ? paths.split() : paths
+    var js, css;
+
+    // For every path in paths add the required to the head.
+    asyncInject_smartclip_skin_css(paths, function(path) {
+
+var doc = document;
+if (window.self !== window.top) {
+    doc = parent.parent.document;
+}
+        var type = path.split('.').pop();
+        switch(type) {
+        case 'js':
+            js = doc.createElement('script');
+            js.src = path;
+            type = js;
+            break;
+        case 'css':
+            css = doc.createElement('link');
+            css.href = path;
+            css.rel = 'stylesheet';
+            type = css;
+            break;
+        default:
+            return;
+        }
+
+        if (callback)
+            type.addEventListener('load', function(e) {
+                callback(e);
+            }, false);
+
+        doc.head.appendChild(type);
+    }, 0);
+}
+
+function dinamicBody(barSelector, fixedDinamicBar){
+    setTimeout(aplayDB, 800);
+
+    function aplayDB(){
+        if (barSelector) {
+            var sc_menuBarFixed = document.querySelector(barSelector);
+        }
+        if (fixedDinamicBar && fixedDinamicBar != '0') {
+            var fixedDinamicBarSelector = document.querySelector(fixedDinamicBar);
+        }
+
+        var newBodyLayer = document.querySelector('.sc_dinamic_body_box');
+
+        function placeNewBody(){
+            var position = sc_menuBarFixed.getBoundingClientRect();
+            newBodyLayer.style.top = position.top - 10 + 'px';
+            console.log('sc bar posiotion: ', position.top + 'px');
+            if (fixedDinamicBar) {
+                function makeDinamicBody(){
+                    if (fixedDinamicBar === '0') {
+                        var dinamicFBCont = {
+                            height: 0
+                        }
+                    }else{
+                        var dinamicFBCont = fixedDinamicBarSelector.getBoundingClientRect();
+                    }
+                    position = sc_menuBarFixed.getBoundingClientRect();
+                    newBodyLayer.style.top = position.top - 10 + 'px';
+                    console.log('scroll: ', window.scrollY + ' // ', dinamicFBCont.height, 'pos top: ', (position.top + 200));
+                    if (position.top <= dinamicFBCont.height) {
+                        newBodyLayer.style.top = dinamicFBCont.height + 'px';
+                    }
+                    if (window.scrollY > 1000) {
+                        window.removeEventListener('scroll', makeDinamicBody);
+                    }
+                    sc_menuBarFixed.addEventListener('focus', function(){
+                        console.log('la barra esta en foco');
+                    });
+                }
+                window.addEventListener('scroll', makeDinamicBody);
+            }
+        }
+        if (newBodyLayer && sc_menuBarFixed) {
+            placeNewBody();
+        }
+    }
+}
+
+function sc_indexOf(domain){
+   return document.location.href.match(domain);
+}
+
+if (document.location.href.indexOf("amctv.es") != -1) {
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/amctv_style_css_skin.css');
+}
+/**@ppublico**/
+else if (document.location.href.indexOf("zeleb.publico.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_zeleb.css'); 
+}
+else if (document.location.href.indexOf("especiales.publico.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_especiales.css'); 
+}
+else if (document.location.href.indexOf("blogs.publico.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_blog.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_blog.js'); 
+}
+else if (document.location.href.indexOf("publico.es") != -1) {
+    if (sc_indexOf('/ahorro-consumo-responsable')) {
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_consumo.css');
+    }else if(sc_indexOf('/psicologia-y-mente')){
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_mente.css'); 
+    }else if(sc_indexOf('/uwu')){
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_uwu.css'); 
+    }else{
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_beta.css'); 
+        dinamicBody('#sc-top', '#pbheader-main');
+    }
+}
+else if (document.location.href.indexOf("nortes.me") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_publico_nortes.css');
+}
+/**@endpublico**/
+else if (document.location.href.indexOf("que.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_que.css');  
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_que.js'); 
+}
+else if (document.location.href.indexOf("que.madrid") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_que.css');  
+}
+else if (document.location.href.indexOf("minijuegos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_minijuegos.css');
+}
+else if (document.location.href.indexOf("filmaffinity") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_filmaffinity.css');
+    dinamicBody('#sc-top', '#header-top');
+
+}
+
+else if (document.location.href.indexOf("canalhollywood.es") != -1) {
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalhollywood_style_css_skin.css');
+}
+else if (document.location.href.indexOf("sundancetv.es") != -1) {
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/sundancetv_style_css_skin.css');
+}
+else if (document.location.href.indexOf("canalxtrm.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalxtrm_style_css_skin.js');
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalxtrm_style_css_skin.css');
+}
+else if (document.location.href.indexOf("canalsomos.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalxtrm_style_css_skin.js');
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalsomos_style_css_skin.css');
+}
+else if (document.location.href.indexOf("darktv.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/canalxtrm_style_css_skin.js');
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/sc_adddivclass_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/darktv_style_css_skin.css');
+}
+else if (document.location.href.indexOf("sc-devel.s3.eu-central-1.amazonaws.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/add_class_ftdiv_tespage_preview.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_creativity-showcase.css');
+}
+//A3 player
+else if (document.location.href.indexOf("atresplayer.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_atresplayer_addclass.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_atresplayer_addclass.css');
+}
+else if (document.location.href.indexOf("premium.atresplayer.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_premium_atresplayer_addclass.css');
+    //require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+}
+// /A3 player
+else if (document.location.href.indexOf("vertele.eldiario.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_vertele.css');
+}
+else if (document.location.href.indexOf("descubrir.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_descubrir.css');
+    dinamicBody('#sc-top', '0');
+}
+else if (document.location.href.indexOf("viajes.nationalgeographic") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_viajesnationalgeographic.css');
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_ntgeo.js');
+}
+else if (document.location.href.indexOf("historia.nationalgeographic") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_historia_ng.css');
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_ntgeo.js');
+}
+else if (document.location.href.indexOf("nationalgeographic.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_nationalgeo_ng.css');
+}
+else if (document.location.href.indexOf("elmueble.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_elmueble.css');
+}
+else if (document.location.href.indexOf("em.mangiro.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_elmueble.css');
+}
+else if (document.location.href.indexOf("larazon.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_larazon_new.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_larazon_new.css');
+}
+else if (document.location.href.indexOf("hogarmania.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_hogarmania.css');
+}
+else if (document.location.href.indexOf("donbalonrosa.defensacentral") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_defensacentral_donbalonrosa.css');
+}
+else if (document.location.href.indexOf("fichajes.defensacentral") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_fichajesdefensacentral.css');
+}
+else if (document.location.href.indexOf("miotraliga.defensacentral") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_defensacentral_miotraliga.css');
+}
+else if (document.location.href.indexOf("miperro.defensacentral") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_miperro.css');
+}
+else if (document.location.href.indexOf("ustedpregunta.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_defensacentral_pregunta.css');
+}
+else if (document.location.href.indexOf("defensacentral") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_defensacentral.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_defensacentral.css');
+}
+else if (document.location.href.indexOf("noticias.juridicas") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.css');
+}
+else if (document.location.href.indexOf("canalcocina.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_canalcocina.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_canalcocina.css');
+}
+else if (document.location.href.indexOf("decasa.tv") != -1) {
+    require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/rmp_smcservices.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/decasa_style_css_skin.css');
+}
+else if (document.location.href.indexOf("quemedico") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_css_quemedico.css');
+}
+else if (document.location.href.indexOf("legiondejugadores.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_legionjugadores.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_legionjugadores.css');
+}
+else if (document.location.href.indexOf("zonared.com/videos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/trucos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/tecnologia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/tv") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/ocio") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/noticias") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/juegos/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredjuegos.css');
+}
+else if (document.location.href.indexOf("zonared.com/juegos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/e3") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/avances") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com/analisis") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonaredresto.css');
+}
+else if (document.location.href.indexOf("zonared.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_zonared.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_zonared.css');
+    dinamicBody('#sc-top', 'header');
+}
+else if (document.location.href.indexOf("cotilleo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_cotilleo_addclass.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_cotilleo_addclass.js');
+    dinamicBody('#sc-top', '0');
+}
+/**@bekia**/
+else if (document.location.href.indexOf("bekiapsicologia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_psicologia_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiafit") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_psicologia_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiaviajes") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/class_desktop-wallpaper.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_viajes_smartclip.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekia_viajes_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiahogar") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/class_desktop-wallpaper.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_viajes_smartclip.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiahogar_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiamoda") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiamoda_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiabelleza") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiabelleza_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiapareja") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekiapareja.css');
+}
+else if (document.location.href.indexOf("bekiapadres") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiapadres_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiamascotas") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiamascotas_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiasalud.com/articulos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekiasalud_articles.css');
+}
+
+else if (document.location.href.indexOf("bekiasalud") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiasalud_smartclip.css');
+}
+else if (document.location.href.indexOf("bekiacocina") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiacocina_smartclip.css');
+}
+else if (document.location.href.indexOf("bekianavidad") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekianavidad.css');
+}
+else if (document.location.href.indexOf("bekiahoroscopo") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekiahoroscopo.css');
+}
+// else if (document.location.href.indexOf("bekia.es/television") != -1) {
+//     require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiatv_smartclip.js');
+//     require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_template_bekiatv_smartclip.css');
+// }
+else if (document.location.href.indexOf("bekia.es/fotos") != -1 || document.location.href.indexOf("bekia.es/video") != -1 || document.location.href.search(/(bekia.es)(\/[0-9a-zA-Z]+)(\/noticias)/i )!= -1 || document.location.href.search(/(bekia.es)(\/[0-9a-zA-Z]+)(\/fotos\/galerias)/i )!= -1) {
+
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_resize.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekia_additional.css');
+}
+else if (document.location.href.search(/bekia.es\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_resize.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekia_secciones.css');
+}
+else if (document.location.href.indexOf("bekia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_resize.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_bekia_home.css');
+}
+/**@end/bekia**/
+
+else if (document.location.href.indexOf("ciclismoafondo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_ciclismoafondo.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_ciclismoafondo.js');
+}
+else if (document.location.href.indexOf("formulatv.com") != -1
+    && !document.location.href.match('formulatv.com/personas')
+    // && document.location.href.search(/formulatv.com.noticias\/[0-9a-zA-Z]+/i) == -1
+    && !document.location.href.match("formulatv.com/noticias")
+    && !document.location.href.match("formulatv.com/productoras")
+    && !document.location.href.match("formulatv.com/listas")
+    && !document.location.href.match("formulatv.com/eurovision")
+    && !document.location.href.match("formulatv.com/tvmovies/indice")
+    && document.location.href.search(/formulatv.com.videos\/[0-9a-zA-Z]+/i) == -1   
+    && !document.location.href.match("formulatv.com/series")) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.css');
+}
+else if (document.location.href.indexOf("formulatv.com/personas") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_personas_skin_style.css');
+}
+else if (document.location.href.search(/formulatv.com.videos\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_noticias_skin_style.css');
+}
+else if (document.location.href.search(/formulatv.com.series\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_serie_skin_style.css');
+}
+else if (document.location.href.indexOf("formulatv.com/listas") != -1 || document.location.href.indexOf("formulatv.com/series") != -1 || document.location.href.indexOf("formulatv.com/productoras") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_noticias_skin_style.css');
+}
+else if (document.location.href.indexOf("formulatv.com/noticias")  != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_noticias_skin_style.css');
+}
+else if (document.location.href.indexOf("formulatv.com/tvmovies/indice")  != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_tvmovies_indice_skin_style.css');
+}
+else if (document.location.href.indexOf("formulatv.com/eurovision")  != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_formulatv.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_skin_style.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/formulatv_eurovision_skin_style.css');
+}
+else if (document.location.href.indexOf("eldiadelarioja.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("diariodeavila") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("diariodeburgos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("diariopalentino") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("eldiadevalladolid") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("eldiasegovia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("eldiasoria") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadealbacete") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadeciudadreal") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadecuenca") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadetalavera") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadetoledo") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("latribunadeguadalajara.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("navarratelevision") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_promecal.css');
+}
+else if (document.location.href.indexOf("elcorreoweb") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_elcorreoweb.css');
+}
+else if (document.location.href.indexOf("infolibre") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_infolibre_v4.css');
+}
+else if (document.location.href.indexOf("ecartelera") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_ecartelera.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_ecartelera.css');
+}
+else if (document.location.href.indexOf("solucionesong") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_solucionesong.css');
+}
+else if (document.location.href.indexOf("hacesfalta.org") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_hacesfalta.css');
+}
+else if (document.location.href.indexOf("aldia.cat/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_aldia.css');
+}
+else if (document.location.href.indexOf("europapress.es/portaltic/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_portaltic.css');
+}
+else if (document.location.href.indexOf("europapress.es/chance/gente/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/realeza/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/belleza/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/moda/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/cineymusica/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/tv/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/tendencias/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/videos/noticia") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_noticias.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/gente/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/realeza/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/belleza/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/moda/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/cineymusica/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/tv/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/tendencias/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance/videos/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance_homeseccion.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es/chance") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_chance.js');
+}
+else if (document.location.href.indexOf("europapress.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_europapress.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_europapress.css');
+}
+else if (document.location.href.indexOf("europapress.tv") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_europapress_tv.css');
+}
+else if (document.location.href.indexOf("notimerica.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_europapress.css');
+}
+/**@culturaocio /The map of culturaocio site **/
+else if (document.location.href.search(/culturaocio.com.cine\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio_articles.css');
+}
+else if (document.location.href.search(/culturaocio.com.tv\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio_articles.css');
+}
+else if (document.location.href.search(/culturaocio.com.musica\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio_articles.css');
+}
+else if (document.location.href.search(/culturaocio.com.videos\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio_articles.css');
+}
+else if (document.location.href.search(/culturaocio.com.ocioencasa\/[0-9a-zA-Z]+/i) != -1 ) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio_articles.css');
+}
+else if (document.location.href.indexOf("culturaocio.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_culturaocio.css');
+}
+/**@culturaocio /End the map of culturaocio site **/
+
+else if (document.location.href.indexOf("infosalus.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_infosalus.css');
+}
+
+/**@losreplientes start**/
+else if (document.location.href.indexOf("losreplicantes.com/fotos") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_losreplicantes.js');
+
+    if (document.location.href.search(/losreplicantes.com\/fotos\/[0-9a-zA-Z]+/i) != -1 ) {
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_losreplicantes_foto_article.css');
+    }else{
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_losreplicantes_foto.css');
+    }
+
+}
+else if (document.location.href.indexOf("losreplicantes.com") != -1) {
+    /*require_smartclip_skin_css('https://sc-devel.s3.eu-central-1.amazonaws.com/Skins/libs/add_sc-wallpaper_style_css_skin.js');*/
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_barraultimahora_losreplicantes.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_losreplicantes.css');
+}
+/**@losreplientes end**/
+
+else if (document.location.href.indexOf("sportlife.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_sportlife.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_sportlife.css');
+}
+else if (document.location.href.indexOf("autopista.es/automercado") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_autopista_automercado.css');
+}
+else if (document.location.href.indexOf("autopista.es/galerias") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_autopista_galerias.css');
+}
+else if (document.location.href.indexOf("autopista.es/coches/comparador") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_autopista_comparador.css');
+}
+else if (document.location.href.indexOf("autopista.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_autopista.css');
+}
+else if (document.location.href.indexOf("triatlonweb.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_triatlonweb.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_triatlonweb.css');
+}
+else if (document.location.href.indexOf("trailrun.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_trailrun.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_trailrun.css');
+}
+else if (document.location.href.indexOf("mountainbike.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_mountainbike.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_mountainbike.css');
+}
+else if (document.location.href.indexOf("revistaoxigeno.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_revistaoxigeno.css');
+}
+else if (document.location.href.indexOf("planeta2030.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_planeta2030.css');
+}
+else if (document.location.href.indexOf("merca2") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_merca2.css'); 
+}
+else if (document.location.href.indexOf("infosalus") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_infosalus.css');
+}        
+else if (document.location.href.indexOf("elpais") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_elpais.css');
+}
+else if (document.location.href.indexOf("playground") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_playgroundmag.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_playgroundmag.css');
+}
+else if (document.location.href.indexOf("eldesmarque") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_skin_eldesmarque.css');
+}
+else if (document.location.href.indexOf("navarra.elespanol") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin-style-navarra-nautilus.css');
+}              
+/*A3*/
+else if (document.location.href.indexOf("lasexta.com/motor") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_motor.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_motor.css');
+}
+else if (document.location.href.indexOf("lasexta.com/viajestic") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_motor.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_motor.css');
+}
+else if (document.location.href.indexOf("lasexta.com/tecnologia-tecnoxplora") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_tecnoxplora.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_tecnoxplora.css');
+}
+else if (document.location.href.indexOf("flooxernow.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_flooxernow.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_flooxernow.css');
+}
+else if (document.location.href.indexOf("antena3.com/liopardo") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/scfixed_zindex_v3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_novalife.css');
+}
+else if (document.location.href.indexOf("antena3.com/se-estrena") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/scfixed_zindex_v3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_novalife.css');
+}
+else if (document.location.href.indexOf("antena3.com/celebrities") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/scfixed_zindex_v3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_novalife.css');
+}
+else if (document.location.href.indexOf("antena3.com/novalife") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/scfixed_zindex_v3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_novalife.css');
+}
+else if (document.location.href.indexOf("antena3.com/objetivotv") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/scfixed_zindex_v3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_objetivotv.css');
+}
+else if (document.location.href.indexOf("neox.atresmedia.com/neox-kidz") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+}
+/*tdt*/
+else if (document.location.href.indexOf("neox.atresmedia.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_neox.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_neox.css');
+}
+else if (document.location.href.indexOf("mega.atresmedia.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_mega.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_mega.css');
+}
+else if (document.location.href.indexOf("nova.atresmedia.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_nova.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_nova.css');
+}
+else if (document.location.href.indexOf("atreseries.atresmedia.com/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_atreseries.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_atreseries.css');
+}
+/*_tdt*/
+else if (document.location.href.indexOf("antena3.com/noticias/loterias") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_loterias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/espana/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/mundo/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/sociedad/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/economia/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/tecnologia/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/ciencia/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/salud/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/cultura/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/deportes/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias/pruebas/") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias.css');
+}
+else if (document.location.href.indexOf("antena3.com/noticias") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_noticias_home.css');
+}
+else if (document.location.href.indexOf("antena3.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3_zIndex.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_antena3.css');
+}
+else if (document.location.href.indexOf("lasexta.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta_zIndex.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_lasexta.css');
+}
+else if (document.location.href.indexOf("atresmedia.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_atresmedia.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_atresmedia.css');
+}
+else if (document.location.href.indexOf("correryfitness.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_correryfitness.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_correryfitness.css');
+}
+else if (document.location.href.indexOf("melodia-fm.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_melodia_fm.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_atresmedia_melodia_fm.css');
+}
+else if (document.location.href.indexOf("ondacero.es") != -1) {
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_ondacero.js');
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_ondacero.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_ondacero.css');
+}
+else if (document.location.href.indexOf("europafm.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_europafm.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_europafm.css');
+}
+/*_A3*/
+else if (document.location.href.indexOf("cocinatis") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_cocinatis.css');
+}
+else if (document.location.href.indexOf("enbuenasmanos.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_enbuenasmanos.css');
+}
+else if (document.location.href.indexOf("20minutos.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_20minutos.css');
+}
+else if (document.location.href.indexOf("lainformacion") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_lainformacion.css');
+}
+else if (document.location.href.indexOf("guiainfantil.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_guiainfantil.css');
+}
+else if (document.location.href.indexOf("trecetv.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_videos_trecetv.css');
+}
+else if (document.location.href.indexOf("lonelyplanet.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_lonelyplanet.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_lonelyplanet.css');
+}
+else if (document.location.href.indexOf("eldiario.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_eldiario.css');
+}
+else if (document.location.href.indexOf("autofacil.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_autofacil.css');
+}
+else if (document.location.href.indexOf("formulamoto.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_formulamoto.css');
+}
+else if (document.location.href.indexOf("guiadelnino.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_guiadelnino.css');
+}
+else if (document.location.href.indexOf("creativity.smartclip-services.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/add_class_ftdiv_tespage_preview.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_creativity-showcase.css');
+}
+else if (document.location.href.indexOf("diariogol.com") != -1 || document.location.href.indexOf("https://diariogol.dokimio.tech/") != -1){
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_diariogol.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_diariogol.css');
+}
+else if (document.location.href.indexOf("arquitecturaydiseno.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_arquitecturaydiseno.css');
+}
+else if (document.location.href.indexOf("sabervivirtv.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_sabervivirtv.css');
+}
+else if (document.location.href.indexOf("marca.com") != -1) {
+    require_smartclip_skin_css('https://e00-marca.uecdn.es/assets/v10/js/jquery.2.2.1.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_marca_interiores.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_marca_interiores.css');
+}
+else if (document.location.href.indexOf("elseptimoarte.net") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_septimoarte.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_septimoarte.js');
+}
+else if (document.location.href.indexOf("motociclismo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_motociclismo.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_motociclismo.css');
+}
+else if (document.location.href.indexOf("instyle.es") != -1)  {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_instyle.css');
+}
+else if (document.location.href.indexOf("semana.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/class_desktop-wallpaper.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/style_semana_skin.css');
+}
+else if (document.location.href.indexOf("menzig") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_menzig.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_menzig.js');
+}
+else if (document.location.href.indexOf("moncloa.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_moncloa.css');
+}
+else if (document.location.href.indexOf("dondiario.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_dondiario.css');
+    dinamicBody('#sc-top');
+}
+else if (document.location.href.indexOf("estiloyvida.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_estiloyvida.css');
+}
+else if (document.location.href.indexOf("cocinillas.elespanol.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_cocinillas.elespanol.css');
+}
+else if (document.location.href.indexOf("elandroidelibre.elespanol.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_elandroidelibre-elespanol.css');
+}
+else if (document.location.href.indexOf("elespanol.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_elespanol.css');
+}
+else if (document.location.href.indexOf("heraldo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_heraldo.css');
+}
+else if (document.location.href.indexOf("tuotromedico.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_tuotromedico.css');
+}
+else if (document.location.href.indexOf("finanzas.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_finanzas.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_finanzas.js');
+}
+else if (document.location.href.indexOf("webconsultas.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_webconsultas.css');
+}
+else if (document.location.href.indexOf("mondosonoro.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_monodosonoro.css');
+}
+else if (document.location.href.indexOf("culturainquieta.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_culturainquieta.css');
+}
+else if (document.location.href.indexOf("soycorredor.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_soycorredor.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_soycorredor.css');
+}
+else if (document.location.href.indexOf("fourfourtwo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_fourfourtwo.css');
+}
+else if (document.location.href.indexOf("zeleb.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_zeleb.css');
+}
+else if (document.location.href.indexOf("mediavida.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_mediavida.css');
+}
+else if (document.location.href.indexOf("lecturas.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_lecturas.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_lecturas.js');
+}
+else if (document.location.href.indexOf("cuerpomente.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_cuerpomente.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_cuerpomente.css');
+}
+//The test page for cuerpomente.com
+else if (document.location.href.indexOf("cm19.mangiro.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_cuerpomente_new.css');
+}
+//End the test page for cuerpomente.com
+else if (document.location.href.indexOf("elmundo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_elmundo.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_elmundo.css');
+}
+else if (document.location.href.indexOf("vozpopuli.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_vozpopuli.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_style_css_vozpopuli.css');
+}
+else if (document.location.href.indexOf("guiasjuridicas") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/noticiasjuridicas_style_css_skin.css');
+}
+else if (document.location.href.indexOf("culturizando.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_culturizando.css');
+}
+else if (document.location.href.indexOf("canalhistoria.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_canalhistoria.css');
+}
+else if (document.location.href.indexOf("cerebriti.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_cerebriti.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_cerebriti.css');
+}
+else if (document.location.href.indexOf("libertaddigital.com/fotos") != -1) {
+    dinamicBody('s', '.superior');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_libertaddigital_galerias.css');
+}
+else if (document.location.href.indexOf("libertaddigital.com") != -1) {
+    dinamicBody('s', '.superior');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_libertaddigital.css');
+}
+else if (document.location.href.indexOf("libremercado.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_libertaddigital.css');
+}
+else if (document.location.href.indexOf("elconfidencialdigital.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_script_resize.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_confidencialdigital.css');
+}
+else if (document.location.href.indexOf("www.cuantarazon.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_cuantarazon.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_cuantarazon.css');
+}
+else if (document.location.href.indexOf("clara.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_clara.css');
+}
+else if (document.location.href.indexOf("mundo-geo") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_mundogeo.css');
+}
+else if (document.location.href.indexOf("motoryracing.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_motoryracing.css');
+}
+else if (document.location.href.indexOf("f1aldia.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_f1aldia.css');
+}
+else if (document.location.href.indexOf("mundogravel.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_mundogravel.css');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_mundogravel.js');
+    dinamicBody('#sc-top', '#header');
+}
+// TUAMC
+else if (document.location.href.indexOf("tuamc.tv") != -1) {
+    // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_sections.css');
+    // DECASA
+    if (sc_indexOf("actualidad.tuamc.tv/decasa")){
+        document.body.classList.add("sc_skin_decasa");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_decasa.css');
+
+    }else if (sc_indexOf("actualidad.tuamc.tv/archivo-decasa")) {
+        document.body.classList.add("sc_skin_decasa_article");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_decasa.css');
+
+    }else if (sc_indexOf(/actualidad.tuamc.tv\/decasa-\/[0-9a-zA-Z]+/i)){
+        document.body.classList.add("sc_skin_decasa_section");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa_article.css');
+
+    }else if (sc_indexOf("actualidad.tuamc.tv/decasa-")) {
+        document.body.classList.add("sc_skin_decasa_article");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa_article.css');
+
+    }else if (sc_indexOf("actualidad.tuamc.tv/archivo-canal-historia")){
+        document.body.classList.add("sc_skin_canalhistoria");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_canalhistoria.css');
+
+        if (sc_indexOf("actualidad.tuamc.tv/archivo-canal-historia/hoy-en-la-historia") ||
+            sc_indexOf("actualidad.tuamc.tv/archivo-canal-historia/perfiles")||
+            sc_indexOf("actualidad.tuamc.tv/archivo-canal-historia/videos-esto-es-historia")){
+                document.body.classList.add("sc_skin_historia_specific");
+        }
+    }else if (sc_indexOf("actualidad.tuamc.tv")) {
+        document.body.classList.add("sc_skin_decasa_actualidad");
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_actualidad.css');
+    
+    // CANAL HISTORIA
+    // }else if (sc_indexOf("actualidad.tuamc.tv/archivo-canal-historia")){
+    //     document.body.classList.add("sc_skin_archivo_canalhistoria");
+    //     require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+    //     require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_archivo_canal_historia.css');
+
+    }else if (sc_indexOf("tuamc.tv")) {
+        document.body.classList.add("sc_skin_decasa_article");
+        // require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_decasa.js');
+        require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tuamc_sections.css');
+    }
+
+}
+else if (document.location.href.indexOf("cochesyconcesionarios.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_cochesyconcesionarios.css');
+}
+else if (document.location.href.indexOf("nuevatribuna.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_nuevatribuna.css');
+}
+else if (document.location.href.indexOf("tiempo.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_tiempo.css');
+}
+else if (document.location.href.indexOf("motor16.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_motor16.css');
+}
+else if (document.location.href.indexOf("inversion.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_inversion.css');
+}
+else if (document.location.href.indexOf("planetarealmadrid.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_planetarealmadrid.css');
+}
+else if (document.location.href.indexOf("miotraliga.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_miotraliga.css');
+}
+else if (document.location.href.indexOf("showbizzdaily.com") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_showbizzdaily.css');
+}
+else if (document.location.href.indexOf("vida.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_vidaes.css');
+}
+else if (document.location.href.indexOf("yorokobu.es") != -1) {
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_yorokobu.js');
+    require_smartclip_skin_css('https://s3.eu-central-1.amazonaws.com/sc-devel/Skins/libs/skin_yorokobu.css');
+}
+
