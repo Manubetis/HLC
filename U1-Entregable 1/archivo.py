@@ -18,6 +18,8 @@ dt = '<dt>'
 dt_c = '</dt>'
 a = '<a>'
 a_c = '</a>'
+style = '<style>'
+style_c = '</style>'
 
 
 def titulo_original(t):
@@ -31,17 +33,12 @@ def titulo_original(t):
         titulo_original = titulo_original[:find_aka]
     return titulo_original
 
-
-print(titulo_original(t))
-
 def anio(t):
     cadena = '<dd itemprop="datePublished">'
     longitud = len(cadena)
     anio = t[t.find('<dd itemprop="datePublished">')+longitud:t.find('<dd itemprop="datePublished">')+longitud+4]
 
     return anio
-
-print(anio(t))
 
 def duracion(t):
     cadena = '<dd itemprop="duration">'
@@ -50,16 +47,12 @@ def duracion(t):
 
     return duracion
 
-print(duracion(t))
-
 def pais(t):
     longitudEspacio = len(espacio)
     label = t[t.find('<span id="country-img">'):]
     pais = label[label.find(espacio)+longitudEspacio:label.find(dd_c)]
 
     return pais
-
-print(pais(t))
 
 def direccion(t):
     cadena = '<span itemprop="name">'
@@ -69,65 +62,97 @@ def direccion(t):
 
     return direccion
 
-print(direccion(t))
-
 def guion(t):
     cadena = '<span>'
     longitud = len(cadena)
     label = t[t.find('<dt>Guion</dt>'):]
-    direccion = label[label.find('<span>')+longitud:label.find(span_c)]
+    guion = label[label.find('<span>')+longitud:label.find(span_c)]
 
-    return direccion
-
-print(guion(t))
+    return guion
 
 def musica(t):
     cadena = '<span>'
     longitud = len(cadena)
     label = t[t.find('<dt>Música</dt>'):]
-    direccion = label[label.find('<span>')+longitud:label.find(span_c)]
+    musica = label[label.find('<span>')+longitud:label.find(span_c)]
 
-    return direccion
-
-print(musica(t))
+    return musica
 
 def fotografia(t):
     cadena = '<span>'
     longitud = len(cadena)
     label = t[t.find('<dt>Fotografía</dt>'):]
-    direccion = label[label.find('<span>')+longitud:label.find(span_c)]
+    fotografia = label[label.find('<span>')+longitud:label.find(span_c)]
 
-    return direccion
-
-print(fotografia(t))
+    return fotografia
 
 def reparto(t):
     cadena = '<span itemprop="name">'
     longitud = len(cadena)
     label = t[t.find('<dt>Reparto</dt>'):]
-    direccion = label[label.find('<span itemprop="name">')+longitud:label.find(span_c)]
+    label = label[label.find('<span itemprop="name">'):label.find(style_c)]
 
-    return direccion
+    array = label.split("name")
+    array.pop(0)
 
-print(reparto(t))
+    reparto = ""
+
+    for i in array:
+        reparto += i[2:i.find(span_c)]+", "
+
+    return reparto
 
 def productora(t):
     cadena = '<span>'
     longitud = len(cadena)
     label = t[t.find('<dt>Compañías</dt>'):]
-    direccion = label[label.find('<span>')+longitud:label.find(span_c)]
+    productora = label[label.find('<span>')+longitud:label.find(span_c)]
 
-    return direccion
-
-print(productora(t))
+    return productora
 
 def genero(t):
-    cadena = '<a href="https://www.filmaffinity.com/es/moviegenre.php?genre=CO&amp;attr=rat_count&amp;nodoc">'
+    cadena = '<a href="https://www.filmaffinity.com/es/moviegenre.php?genre=CO&attr=rat_count&nodoc">'
     longitud = len(cadena)
     label = t[t.find('<dt>Género</dt>'):]
-    print(label)
-    genero = label[label.find('<a href="https://www.filmaffinity.com/es/moviegenre.php?genre=CO&amp;attr=rat_count&amp;nodoc">')+longitud:label.find(a_c)]
+    label = label[label.find('<a href="https://www.filmaffinity.com/es/moviegenre.php?genre=CO&attr=rat_count&nodoc">')+longitud:label.find(dd_c)]
 
-    return genero
+    array = label.split("<a")
 
-print(genero(t))
+
+    generos = ""
+
+    generos += label[:label.find(a_c)]+", "
+
+    array.pop(0)
+
+    for i in array:
+        cadena = 'count&nodoc">'
+        longitud = len(cadena)
+        generos += i[i.find('count&nodoc">')+longitud:i.find(a_c)]+", "
+
+    return generos
+
+def sinopsis(t):
+    cadena = '<dd class="" itemprop="description">'
+    longitud = len(cadena)
+    label = t[t.find('<dt>Sinopsis</dt>'):]
+    sinopsis = label[label.find('<dd class="" itemprop="description">')+longitud:label.find(dd_c)]
+
+    return sinopsis
+
+direccion = {
+    "titulo_original":titulo_original(t),
+    "anio":anio(t),
+    "duracion":duracion(t),
+    "pais":pais(t),
+    "direccion":direccion(t),
+    "guion":guion(t),
+    "musica":musica(t),
+    "fotografia":fotografia(t),
+    "reparto":reparto(t),
+    "productora":productora(t),
+    "genero":genero(t),
+    "sinopsis":sinopsis(t)
+}
+
+print(direccion)
